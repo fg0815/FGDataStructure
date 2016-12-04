@@ -65,4 +65,36 @@
     return [characters copy];
 }
 
++ (BOOL)hasAnagramsByUsingHashFromArray:(NSArray<NSString *> *)words;
+{
+    NSMutableSet<NSString *> *hashSet = [NSMutableSet set];
+    
+    for (NSString *word in words) {
+        if ([hashSet containsObject:[self hashForWord:word]]) {
+            return YES;
+        } else {
+            [hashSet addObject:[self hashForWord:word]];
+        }
+    }
+    return NO;
+}
+
++ (NSString *)hashForWord:(NSString *)word
+{
+    word = [word lowercaseString];
+    NSMutableString *hash = [NSMutableString string];
+    int alphabet[26];
+    
+    for (int i = 0; i < word.length; i++) {
+        unichar character = [word characterAtIndex:i];
+        alphabet[character-'a'] += 1;
+    }
+    
+    for (int j = 0; j < 26; j++) {
+        [hash appendFormat:@"%d|", alphabet[j]];
+    }
+    
+    return [hash copy];
+}
+
 @end
