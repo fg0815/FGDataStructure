@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FGFBTreeNode<__covariant ObjectType>:NSObject
+@interface FGFBTreeNode<__covariant ObjectType:NSObject<NSCopying> *>:NSObject<NSCopying>
 
 @property (nonatomic, strong, readonly) ObjectType value;
 @property (nonatomic, strong, nullable) FGFBTreeNode *left;
@@ -32,6 +32,41 @@ typedef void(^tree_node_visit_block_t)(FGFBTreeNode *treeNode);
 - (instancetype)initWithVisitBlock:(tree_node_visit_block_t)block NS_DESIGNATED_INITIALIZER;
 - (instancetype)init NS_UNAVAILABLE;
 
+@end
+
+@interface FGFBInOrderTreeEnumerator : NSObject
+
+- (instancetype)initWithTree:(FGFBTreeNode *)root NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
+- (id)nextObject;
+
+@end
+
+@interface FGFBPreOrderTreeEnumerator : NSObject
+
+- (instancetype)initWithTree:(FGFBTreeNode *)root NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
+- (id)nextObject;
+
+@end
+
+@interface FGFBPostOrderTreeEnumerator : NSObject
+
+- (instancetype)initWithTree:(FGFBTreeNode *)root NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
+- (id)nextObject;
+
+@end
+
+@interface FGFBInOrderTreeBuilder : NSObject
+
+- (FGFBTreeNode *)buildTreeWithInOrderSequence:(NSArray<NSNumber *> *)numbers;
+
+@end
+
+@interface FGFBTreeSerializer : NSObject
++ (NSArray *)serializeTree:(FGFBTreeNode *)root;
++ (FGFBTreeNode *)deserializeFromArray:(NSArray *)array;
 @end
 
 NS_ASSUME_NONNULL_END

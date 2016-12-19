@@ -37,10 +37,10 @@
     NSUInteger i = 0;
     NSUInteger j = array.count - 1;
     while ( i < j) {
-        while (i < j && [array[i] integerValue] == 0) {
+        while (i < j && [array[i] integerValue] != 0) {
             i++;
         }
-        while (i < j && [array[j] integerValue] != 0) {
+        while (i < j && [array[j] integerValue] == 0) {
             j--;
         }
         
@@ -181,7 +181,7 @@
         }
     }];
     
-    //traverse strign with help of lastAppearanceIndex
+    //traverse string with help of lastAppearanceIndex
     __block NSUInteger longestSubstringLength = 0;
     __block NSUInteger currentStart = 0;
     
